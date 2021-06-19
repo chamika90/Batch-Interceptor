@@ -11,8 +11,6 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "axios-mock-adapter": "^1.19.0",
-    "js-cache": "^1.0.3",
     "lodash": "^4.17.21",
     "react": "17.0.1",
     "react-native": "0.64.2"
