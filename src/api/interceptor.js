@@ -1,5 +1,6 @@
 import uniq from 'lodash/uniq';
 import httpAdapter from 'axios/lib/adapters/http';
+
 let batchRequests = [];
 let batchRequestPromise = null;
 

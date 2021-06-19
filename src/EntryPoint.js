@@ -4,23 +4,27 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import apiClient from './api/apiClient';
 
 const client = apiClient();
+const batchUrl = '/file-batch-api';
+
+const sendRequests = () => {
+  // Should batch in to one request
+  client
+    .get(batchUrl, {params: {ids: ['fileid1', 'fileid2']}})
+    .then(({data}) => console.log('resp ', data))
+    .catch(error => console.log('error', error));
+
+  client
+    .get(batchUrl, {params: {ids: ['fileid2']}})
+    .then(({data}) => console.log('resp  ', data))
+    .catch(error => console.log('error', error));
+
+  // This should reject as the fileid3 is missing from the response;
+  client
+    .get(batchUrl, {params: {ids: ['fileid3']}})
+    .then(({data}) => console.log('resp ', data))
+    .catch(error => console.log('error', error));
+};
 const EntryPoint = () => {
-  const sendRequests = () => {
-    const batchUrl = '/file-batch-api';
-
-    client
-      .get(batchUrl, {params: {ids: ['fileid1', 'fileid2']}})
-      .then(response => {
-        console.log('resp 1 -->', response);
-      });
-    client.get(batchUrl, {params: {ids: ['fileid2']}}).then(response => {
-      console.log('resp 2 -->', response);
-    });
-    client.get(batchUrl, {params: {ids: ['fileid1']}}).then(response => {
-      console.log('resp 3 -->', response);
-    });
-  };
-
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button} onPress={() => sendRequests()}>
